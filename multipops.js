@@ -18,3 +18,4 @@ var obj1 = myObject.create([obj0]);
 obj1.func = function(){return "Hejsan"};
 var obj2 = myObject.create([obj0, obj1]);
 //console.log(obj2.call(func, params));  TO BE IMPLEMENTED!!!
+//testpushar!
