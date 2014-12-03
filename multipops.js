@@ -10,16 +10,26 @@ var myObject = {
 		return obj;
     },
     'call': function (funcName, params) {
+    	var visited = [];
+    	return this.findFunc(funcName, params, visited);
+    },
+    'findFunc': function (funcName, params, visited) {
+		visited.push(this);
 		if(this.hasOwnProperty(funcName)) {
 			return this[funcName](params);
 		}
 		var result;
 		this.prototypes.forEach(
 			function(obj) {
-				var call = obj.call(funcName, params)
-				if(call != undefined && result === undefined) {
-					result = call;
+				if(visited.indexOf(obj) == -1) {
+					var call = obj.findFunc(funcName, params, visited)
+					if(call != undefined && result === undefined) {
+						result = call;
+						return;
+					}
 				}
+				else
+					console.log("WARNING: Circular inheritance detected!");
 			}
 		);
 		return result;
@@ -37,5 +47,5 @@ try {
 	console.log(obj3.call('func', 'hello'));
 }
 catch (err){
-	console.log("Params must be Array")
+	console.log(err)
 }
