@@ -26,6 +26,7 @@ var myObject = {
     },
     'prototypes': []
 }
+
 try {
 	var obj0 = myObject.create(null);
 	obj0.func = function(params){return "func0: " + params};
